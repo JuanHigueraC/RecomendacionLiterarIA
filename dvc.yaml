@@ -1,0 +1,8 @@
+stages:
+  clean_data:
+    cmd: python src/clean_data.py --input ${cleaning.raw_data} --output ${cleaning.processed_data}
+    deps:
+      - src/clean_data.py
+      - data/raw/books_google_dataset.csv
+    outs:
+      - data/processed/books_google_dataset.csv

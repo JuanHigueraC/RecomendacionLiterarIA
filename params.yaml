@@ -1,0 +1,3 @@
+cleaning:
+  raw_data: data/raw/books_google_dataset.csv
+  processed_data: data/processed/books_google_dataset.csv
