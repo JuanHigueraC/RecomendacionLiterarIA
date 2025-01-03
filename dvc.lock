@@ -1,0 +1,19 @@
+schema: '2.0'
+stages:
+  clean_data:
+    cmd: python src/clean_data.py --input data/raw/books_google_dataset.csv --output
+      data/processed/books_google_dataset.csv
+    deps:
+    - path: data/raw/books_google_dataset.csv
+      hash: md5
+      md5: fb986e694176649505eec4a383b8a3eb
+      size: 4142211
+    - path: src/clean_data.py
+      hash: md5
+      md5: 4997f53527548531b87ab28b89938110
+      size: 2925
+    outs:
+    - path: data/processed/books_google_dataset.csv
+      hash: md5
+      md5: 38b080a2991e1e61de0b9f1479e63274
+      size: 4051397
