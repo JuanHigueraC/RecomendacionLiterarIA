@@ -1,4 +1,5 @@
 stages:
+  
   clean_data:
     cmd: python src/clean_data.py --input ${cleaning.raw_data} --output ${cleaning.processed_data}
     deps:
@@ -6,3 +7,11 @@ stages:
       - data/raw/books_google_dataset.csv
     outs:
       - data/processed/books_google_dataset.csv
+  
+  feature_engineering:
+    cmd: python src/feature_engineering.py --input ${feature_engineering.input_data} --output ${feature_engineering.output_data}
+    deps:
+      - src/feature_engineering.py
+      - data/processed/books_google_dataset.csv
+    outs:
+      - data/features/books_google_dataset.csv

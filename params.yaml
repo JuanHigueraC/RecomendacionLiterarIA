@@ -1,3 +1,7 @@
 cleaning:
   raw_data: data/raw/books_google_dataset.csv
   processed_data: data/processed/books_google_dataset.csv
+
+feature_engineering:
+  input_data: data/processed/books_google_dataset.csv
+  output_data: data/features/books_google_dataset.csv
