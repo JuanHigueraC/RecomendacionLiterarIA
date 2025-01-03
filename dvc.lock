@@ -17,3 +17,20 @@ stages:
       hash: md5
       md5: 38b080a2991e1e61de0b9f1479e63274
       size: 4051397
+  feature_engineering:
+    cmd: python src/feature_engineering.py --input data/processed/books_google_dataset.csv
+      --output data/features/books_google_dataset.csv
+    deps:
+    - path: data/processed/books_google_dataset.csv
+      hash: md5
+      md5: 38b080a2991e1e61de0b9f1479e63274
+      size: 4051397
+    - path: src/feature_engineering.py
+      hash: md5
+      md5: 0e54e68f76dc2b52666d7c1bf9ff3342
+      size: 7151
+    outs:
+    - path: data/features/books_google_dataset.csv
+      hash: md5
+      md5: 5dae68451e91ed003e9f1317e79ab1c8
+      size: 31512015
