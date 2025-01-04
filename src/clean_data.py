@@ -12,6 +12,10 @@ def remove_missing_values(df):
     columns_to_check = ['isbn13', 'title', 'authors', 'categories', 'description', 'published_year', 'num_pages']
     return df.dropna(subset=columns_to_check)
 
+def remove_zero_num_pages(df):
+    mask = df["num_pages"]==0
+    return df[~mask]
+
 def create_quality_table(df):
     with console.status("[bold blue]📊 Calculando métricas de calidad...") as status:
         quality_table = pd.DataFrame({
@@ -70,6 +74,7 @@ def clean_data(input_path, output_path):
     
     with console.status("[bold blue]🧹 Limpiando datos...") as status:
         df = remove_missing_values(df)
+        df = remove_zero_num_pages(df)
         rprint(f"[bold green]✨ Limpieza completada! Nuevas dimensiones: {df.shape[0]} filas x {df.shape[1]} columnas")
     
     display_quality_comparison(before_df, df)
