@@ -1,9 +1,13 @@
+import nltk
+
 import pandas as pd
 import numpy as np
+
+from gensim.models import Word2Vec
+from nltk.sentiment import SentimentIntensityAnalyzer
 from rich.console import Console
 from rich.progress import track
 from rich import print as rprint
-from gensim.models import Word2Vec
 
 console = Console()
 
