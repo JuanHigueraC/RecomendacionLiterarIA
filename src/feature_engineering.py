@@ -11,6 +11,40 @@ from rich import print as rprint
 
 console = Console()
 
+def create_sentiment_features(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Creates sentiment features for title and description columns
+    """
+    # Initialize VADER sentiment analyzer
+    nltk.download("vader_lexicon", quiet=True)
+    sia = SentimentIntensityAnalyzer()
+    
+    # Combine title and subtitle
+    df['combined_title'] = df.apply(
+        lambda x: x['title'] + ' ' + x['subtitle'] 
+        if pd.notna(x['subtitle']) else x['title'], 
+        axis=1
+    )
+    
+    # Calculate sentiment scores for combined title
+    title_scores = df['combined_title'].apply(sia.polarity_scores)
+    df['title_positive'] = title_scores.apply(lambda x: x['pos'])
+    df['title_negative'] = title_scores.apply(lambda x: x['neg'])
+    df['title_neutral'] = title_scores.apply(lambda x: x['neu'])
+    df['title_compound'] = title_scores.apply(lambda x: x['compound'])
+    
+    # Calculate sentiment scores for description
+    description_scores = df['description'].apply(
+        lambda x: sia.polarity_scores(x) if isinstance(x, str) 
+        else {'pos': 0, 'neg': 0, 'neu': 0, 'compound': 0}
+    )
+    df['description_positive'] = description_scores.apply(lambda x: x['pos'])
+    df['description_negative'] = description_scores.apply(lambda x: x['neg'])
+    df['description_neutral'] = description_scores.apply(lambda x: x['neu'])
+    df['description_compound'] = description_scores.apply(lambda x: x['compound'])
+    
+    return df
+
 def create_authors_embeddings(df: pd.DataFrame, authors_col: str, vector_size: int = 50) -> pd.DataFrame:
     """
     Crea un único vector de embeddings para autores por fila
@@ -57,8 +91,8 @@ def feature_engineering(input_path: str, output_path: str):
     rprint("[bold blue]🎯 Vectorizando categorías...")
     df = create_category_vector(df, 'categories')
     
-    rprint("[bold blue]🗺️ Vectorizando titulos y descripciones...")
-    df = create_category_vector(df, 'categories')
+    rprint("[bold blue]📊 Analizando sentimientos del título y descripción...")
+    df = create_sentiment_features(df)
     
     df.to_csv(output_path, index=False)
     rprint("[bold green]🚀 Feature engineering completado!")
