@@ -10,27 +10,27 @@ stages:
       size: 4142211
     - path: src/clean_data.py
       hash: md5
-      md5: 4318020e451d5d46f0317c66c90c1172
-      size: 3818
+      md5: 33f91439bac1bed59bf980d594bcbf48
+      size: 3945
     outs:
     - path: data/processed/books_google_dataset.csv
       hash: md5
-      md5: 38b080a2991e1e61de0b9f1479e63274
-      size: 4051397
+      md5: 298944aef10e960b7da44d40933728df
+      size: 4050201
   feature_engineering:
     cmd: python src/feature_engineering.py --input data/processed/books_google_dataset.csv
       --output data/features/books_google_dataset.csv
     deps:
     - path: data/processed/books_google_dataset.csv
       hash: md5
-      md5: 38b080a2991e1e61de0b9f1479e63274
-      size: 4051397
+      md5: 298944aef10e960b7da44d40933728df
+      size: 4050201
     - path: src/feature_engineering.py
       hash: md5
-      md5: 6910edb8333d0d24cc8caa3addccbaaa
-      size: 3072
+      md5: 19a7c40f037bf2dc344f61512251fe21
+      size: 4206
     outs:
     - path: data/features/books_google_dataset.csv
       hash: md5
-      md5: 259fc65b5b81e3cd2fc6f1433408f27a
-      size: 18651820
+      md5: 6c938d3b541743341686957991fbfa9f
+      size: 19111990
